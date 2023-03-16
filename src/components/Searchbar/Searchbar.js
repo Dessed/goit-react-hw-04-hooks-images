@@ -1,26 +1,19 @@
-import React, { Component } from "react";
+import { useState } from "react";
 import { Searchbar, Form, Button, Label, Input } from './Searchbar.styled';
 import PropTypes from 'prop-types';
 
-export class SearchbarHeader extends Component {
-  state = {
-    name: '',
-};
+export const SearchbarHeader = ({ onSubmit }) => {
+ const [name, setName] = useState('');
 
-handleChange = e => {
-  this.setState({name: e.target.value});
+const handleChange = e => {
+  setName(e.target.value);
 }; 
 
-handleSubmit = e => {
+const handleSubmit = e => {
   e.preventDefault();
-
-  this.props.onSubmit(this.state.name);
-  this.setState({ name: '' });
+  onSubmit(name);
+  setName('');
 };
-
-render () {
-  const handleSubmit = this.handleSubmit;
-  const handleChange = this.handleChange; 
 
     return(
       <Searchbar>
@@ -39,13 +32,9 @@ render () {
     </Form>
   </Searchbar>
     );
-  };
 };
 
 
 SearchbarHeader.propTypes = {
   name: PropTypes.string,
 };
-
-
-
